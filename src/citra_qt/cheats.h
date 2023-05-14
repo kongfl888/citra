@@ -5,24 +5,22 @@
 #pragma once
 
 #include <memory>
-#include "common/common_types.h"
+#include <QDialog>
 
 namespace Cheats {
 class CheatBase;
-class CheatEngine;
-} // namespace Cheats
+}
 
 namespace Ui {
-class ConfigureCheats;
+class CheatDialog;
 } // namespace Ui
 
-class ConfigureCheats : public QWidget {
+class CheatDialog : public QDialog {
     Q_OBJECT
 
 public:
-    explicit ConfigureCheats(u64 title_id_, QWidget* parent = nullptr);
-    ~ConfigureCheats();
-    bool ApplyConfiguration();
+    explicit CheatDialog(QWidget* parent = nullptr);
+    ~CheatDialog();
 
 private:
     /**
@@ -44,7 +42,10 @@ private:
      */
     bool SaveCheat(int row);
 
+    void closeEvent(QCloseEvent* event) override;
+
 private slots:
+    void OnCancel();
     void OnRowSelected(int row, int column);
     void OnCheckChanged(int state);
     void OnTextEdited();
@@ -52,10 +53,8 @@ private slots:
     void OnAddCheat();
 
 private:
-    std::unique_ptr<Ui::ConfigureCheats> ui;
+    std::unique_ptr<Ui::CheatDialog> ui;
     std::vector<std::shared_ptr<Cheats::CheatBase>> cheats;
     bool edited = false, newly_created = false;
     int last_row = -1, last_col = -1;
-    u64 title_id;
-    std::unique_ptr<Cheats::CheatEngine> cheat_engine;
 };

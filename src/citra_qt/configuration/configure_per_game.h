@@ -19,7 +19,6 @@ class ConfigureEnhancements;
 class ConfigureGraphics;
 class ConfigureSystem;
 class ConfigureDebug;
-class ConfigureCheats;
 
 class QGraphicsScene;
 class QStandardItem;
@@ -52,7 +51,6 @@ public:
 private:
     void changeEvent(QEvent* event) override;
     void RetranslateUI();
-    void HandleAcceptedEvent();
 
     void HandleApplyButtonClicked();
 
@@ -72,5 +70,4 @@ private:
     std::unique_ptr<ConfigureGraphics> graphics_tab;
     std::unique_ptr<ConfigureSystem> system_tab;
     std::unique_ptr<ConfigureDebug> debug_tab;
-    std::unique_ptr<ConfigureCheats> cheat_tab;
 };
